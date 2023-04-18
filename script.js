@@ -29,6 +29,36 @@ addBook(theHobbit);
 addBook(handmaidsTale);
 
 // populate divs
+function displayBooks() {
+  for (let i = 0; i < library.length; i++) {
+    let book = document.createElement('div');
+    let title = document.createElement('h1');
+    let author = document.createElement('h2');
+    let pages = document.createElement('h2');
+    let read = document.createElement('button');
+    
+    // add class to divs
+    book.className = 'book';
+    title.className = 'book-title';
+    author.className = 'book-author';
+    pages.className = 'book-pages';
+    read.className = 'have-read-book';
+    
+    // display text of book cards
+    title.textContent = `${library[i].title}`;
+    author.textContent = `By ${library[i].author}`;
+    pages.textContent = `${library[i].pages} pages`;
+    read.textContent = `${library[i].haveRead == true ? 'Mark as Unread' : 'Mark as Read'}`;
+    
+    // append whole book card as div with children
+    libraryDisplay.appendChild(book);
+    book.appendChild(title);
+    book.appendChild(author);
+    book.appendChild(pages);
+    book.appendChild(read);
+  }
+}
 
+displayBooks();
 
 addbookButton.addEventListener('click', createBook);
