@@ -34,6 +34,23 @@ button:active {
   scale: .95;
 }
 
+.pages-input {
+  width: 10vw;
+}
+
+.create-book {
+  display: grid;
+  text-align: center;
+  align-items: center;
+  justify-self: center;
+  width: 25vw;
+  height: auto;
+}
+
+.create-book.checkbox {
+  display: flex;
+}
+
 .header {
   display: flex;
   gap: 1rem;
@@ -43,4 +60,63 @@ button:active {
 
 .add-book {
   width: 10rem;
+}
+
+.have-read {
+  position: relative;
+  display: inline-block;
+  width: 50px;
+  height: 28px;
+}
+
+.have-read input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.have-read-slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+.have-read-slider.round {
+  border-radius: 34px;
+}
+
+.have-read-slider.round:before {
+  border-radius: 50%;
+}
+
+.have-read-slider:before {
+  position: absolute;
+  content: "";
+  height: 22px;
+  width: 22px;
+  left: 3px;
+  bottom: 3px;
+  background-color: white;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+input:checked + .have-read-slider {
+  background-color: lightblue;
+}
+
+input:focus + .have-read-slider {
+  box-shadow: 0 0 1px lightblue;
+}
+
+input:checked + .have-read-slider:before {
+  -webkit-transform: translateX(22px);
+  -ms-transform: translateX(22px);
+  transform: translateX(22px);
 }
