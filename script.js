@@ -37,8 +37,8 @@ function displayBooks() {
     let author = document.createElement('h2');
     let pages = document.createElement('h2');
     let readToggle = document.createElement('label');
-    let readSwitch;
-    let readRound;
+    let readSwitch = document.createElement('input');
+    let readRound = document.createElement('div');
     
     // add class to divs
     book.className = 'book';
@@ -47,20 +47,23 @@ function displayBooks() {
     pages.className = 'book-pages';
     readToggle.className = 'have-read';
     readSwitch.className = 'switch';
-    readRound.className = 'have-read-round round'
+    readSwitch.setAttribute('type', 'checkbox');
+    readRound.className = 'have-read-slider round';
     
     // display text of book cards
     title.textContent = `${library[i].title}`;
     author.textContent = `By ${library[i].author}`;
     pages.textContent = `${library[i].pages} pages`;
-    read.textContent = `${library[i].haveRead == true ? 'Mark as Unread' : 'Mark as Read'}`;
+    readToggle.textContent = `${library[i].haveRead == true ? 'Mark as Unread' : 'Mark as Read'}`;
     
-    // append whole book card as div with children
+    // append whole book card as div with children  
     libraryDisplay.appendChild(book);
     book.appendChild(title);
     book.appendChild(author);
     book.appendChild(pages);
-    book.appendChild(read);
+    book.appendChild(readToggle);
+    readToggle.appendChild(readSwitch);
+    readToggle.appendChild(readRound);
   }
 }
  
