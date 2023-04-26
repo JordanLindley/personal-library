@@ -3,6 +3,7 @@
 // const authorInput = document.querySelector('.author-input').value;
 const libraryDisplay = document.querySelector('.library');
 const addBookButton = document.querySelector('.add-book');
+const createBookBox = document.querySelector('.create-book');
 
 // book constructor
 function Book(id, title, author, pages, haveRead) {
@@ -11,10 +12,6 @@ function Book(id, title, author, pages, haveRead) {
   this.author = author;
   this.pages = pages;
   this.haveRead = haveRead;
-}
-
-function createBook() {
-  let bookForm = document.createElement('div');
 }
 
 // library array to contain Books
@@ -69,4 +66,8 @@ function displayBooks() {
  
 displayBooks();
 
-addbookButton.addEventListener('click', createBook);
+addBookButton.onClick = function() {
+  if (createBookBox.style.display === 'hidden') {
+    createBookBox.style.visibility = 'visible';
+  } else createBookBox.style.visibility = 'hidden';
+};

@@ -1,5 +1,7 @@
 body {
   background-color: #D3D3D3;
+  display: grid;
+  align-items: center;
 }
 
 .library {
@@ -34,7 +36,13 @@ button:active {
   scale: .95;
 }
 
+input {
+  background-color: #efebeb;
+  border-radius: 5px;
+}
+
 .pages-input {
+  margin: auto;
   width: 10vw;
 }
 
@@ -45,6 +53,9 @@ button:active {
   justify-self: center;
   width: 25vw;
   height: auto;
+  background-color: white;
+  border-radius: 20px;
+  visibility: hidden;
 }
 
 .create-book.checkbox {
