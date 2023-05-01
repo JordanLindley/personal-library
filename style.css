@@ -46,6 +46,10 @@ input {
   width: 10vw;
 }
 
+.show-box {
+  display: none;
+}
+
 .create-book {
   display: grid;
   text-align: center;
@@ -55,11 +59,14 @@ input {
   height: auto;
   background-color: white;
   border-radius: 20px;
-  visibility: hidden;
 }
 
 .create-book.checkbox {
   display: flex;
+}
+
+.create-btn {
+  margin-top: 1rem;
 }
 
 .header {
@@ -84,6 +91,10 @@ input {
   opacity: 0;
   width: 0;
   height: 0;
+}
+
+.mark-read {
+  margin-top: 15px;
 }
 
 .have-read-slider {

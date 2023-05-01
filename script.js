@@ -29,6 +29,7 @@ addBook(handmaidsTale);
 // populate divs
 function displayBooks() {
   for (let i = 0; i < library.length; i++) {
+    let deleteBook = document.createElement('button').className('delete-book');
     let book = document.createElement('div');
     let title = document.createElement('h1');
     let author = document.createElement('h2');
@@ -51,23 +52,44 @@ function displayBooks() {
     title.textContent = `${library[i].title}`;
     author.textContent = `By ${library[i].author}`;
     pages.textContent = `${library[i].pages} pages`;
-    readToggle.textContent = `${library[i].haveRead == true ? 'Mark as Unread' : 'Mark as Read'}`;
+    deleteBook.textContent = `Delete`;
     
     // append whole book card as div with children  
     libraryDisplay.appendChild(book);
+    book.appendChild(deleteBook);
     book.appendChild(title);
     book.appendChild(author);
     book.appendChild(pages);
     book.appendChild(readToggle);
     readToggle.appendChild(readSwitch);
     readToggle.appendChild(readRound);
+
+    readSwitch.addEventListener('click', () => {
+      if (readSwitch.getAttribute('value') == '1') {
+        readToggle.textContent = 'Mark as unread';
+      } else if (readSwitch.getAttribute('value') == '0') {
+        readToggle.textContent = 'Mark as read';
+      }
+    })
+
+      // tried to implement a delete button but nothing fucking works now.
+    // function popBook(book) {
+    //   const index = library.indexOf(book);
+    //   library.splice(index, 1);
+    // }
+
+    // deleteBook.addEventListener('click', function() {
+    //   popBook(library[i]);
+    // })
   }
 }
  
 displayBooks();
 
-addBookButton.onClick = function() {
-  if (createBookBox.style.display === 'hidden') {
-    createBookBox.style.visibility = 'visible';
-  } else createBookBox.style.visibility = 'hidden';
-};
+function showBox() {
+  if (createBookBox.style.display === 'none') {
+    createBookBox.style.display = 'block';
+  } else createBookBox.style.display = 'none';
+}
+
+addBookButton.addEventListener('click', showBox);
