@@ -51,7 +51,7 @@ input {
 }
 
 .create-book {
-  display: grid;
+  display: none;
   text-align: center;
   align-items: center;
   justify-self: center;
