@@ -7,8 +7,7 @@ const createBookBox = document.querySelector('.create-book');
 const submit = document.querySelector('.create-btn');
 
 // book constructor
-function Book(id, title, author, pages, haveRead) {
-  this.id = id;
+function Book(title, author, pages, haveRead) {
   this.title = title;
   this.author = author;
   this.pages = pages;
@@ -20,22 +19,21 @@ let library = [];
 
 // push created book to library
 // const addBook = newBook => library.push(newBook);
-const addBook = (e) => {
-  e.preventDefault();
+const addBook = () => {
 
-  // Book form data
+  // Capture book form data
   let title = createBookBox.title.value;
   let author = createBookBox.author.value;
   let pages = createBookBox.pages.value;
   let read;
-  formDisplay.read.checked ? read = "Read" : read = "Not Read";
+  createBookBox.read.checked ? read = "Read" : read = "Not Read";
 
-  let newBook = new Book(id, title, author, pages, haveRead);
+  let newBook = new Book(title, author, pages, read);
   library.push(newBook);
-  formDisplay.reset();
-
-
+  createBookBox.reset();
 }
+
+submit.addEventListener('click', () => {addBook()});
 
 // delete a book based on its index
 function removeBook(book) {
@@ -99,7 +97,7 @@ function displayBooks() {
 
       // tried to implement a delete button but nothing fucking works now.
     deleteBook.addEventListener('click', () => {
-      popBook(library[i]);
+      removeBook(library[i]);
     })
   }
 }
