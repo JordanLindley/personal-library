@@ -4,7 +4,7 @@ body {
   align-items: center;
 }
 
-.library {
+#library {
   display: grid;
   grid-template-columns: repeat(3, minmax(200px, 1fr));
   gap: 15px;
@@ -19,17 +19,35 @@ body {
   padding-bottom: 15px;
 }
 
-button {
+.delete-book {
   border: none;
-  background-color: lightblue;
+  background-color: rgba(184, 43, 43, 0.709);
   padding: 12px;
   border-radius: 10px;
   transition: all .15s ease;
+  opacity: 0.8
 }
 
-button:hover {
-  background-color: lightgreen;
+.delete-book:hover {
+  opacity: 1;
   cursor: pointer;
+}
+
+.new-book {
+  background-color: #555;
+  color: white;
+  padding: 16px 20px;
+  border: none;
+  cursor: pointer;
+  opacity: 0.8;
+  position: fixed;
+  bottom: 23px;
+  right: 28px;
+  width: 280px;
+}
+
+.new-book:hover {
+  opacity: 1;
 }
 
 button:active {
@@ -47,15 +65,20 @@ input {
 }
 
 .create-book {
-  display: grid;
+  display: none;
+  position: fixed;
+  bottom: 0;
+  right: 15px;
+  border: 3px solid #f1f1f1;
+  z-index: 9;
+/*   display: none;
   text-align: center;
   align-items: center;
   justify-self: center;
   width: 25vw;
   height: auto;
   background-color: white;
-  border-radius: 20px;
-  visibility: hidden;
+  border-radius: 20px; */
 }
 
 .create-book.checkbox {

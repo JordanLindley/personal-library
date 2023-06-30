@@ -1,9 +1,12 @@
 // DOM elements:
 // const titleInput = document.querySelector('.title-input').value;
 // const authorInput = document.querySelector('.author-input').value;
-const libraryDisplay = document.querySelector('.library');
-const addBookButton = document.querySelector('.add-book');
+const libraryDisplay = document.getElementById('library');
+const addBookButton = document.querySelector('.new-book');
 const createBookBox = document.querySelector('.create-book');
+const cancelBookButton = document.querySelector('.cancel-btn');
+
+const randomID = () => {"id" + Math.random().toString(16).slice(2)}
 
 // book constructor
 function Book(id, title, author, pages, haveRead) {
@@ -21,53 +24,80 @@ let library = [];
 const addBook = newBook => library.push(newBook);
 
 // placeholder books
-const theHobbit = new Book(0, 'The Hobbit', 'J.R.R. Tolkien', 304, false);
-const handmaidsTale = new Book(1, 'The Handmaid\'s Tale', 'Margaret Atwood', 314, true);
+const theHobbit = new Book(randomID(), 'The Hobbit', 'J.R.R. Tolkien', 304, false);
+const handmaidsTale = new Book(randomID(), 'The Handmaid\'s Tale', 'Margaret Atwood', 314, true);
 addBook(theHobbit);
 addBook(handmaidsTale);
 
-// populate divs
-function displayBooks() {
-  for (let i = 0; i < library.length; i++) {
-    let book = document.createElement('div');
-    let title = document.createElement('h1');
-    let author = document.createElement('h2');
-    let pages = document.createElement('h2');
-    let readToggle = document.createElement('label');
-    let readSwitch = document.createElement('input');
-    let readRound = document.createElement('div');
-    
-    // add class to divs
-    book.className = 'book';
-    title.className = 'book-title';
-    author.className = 'book-author';
-    pages.className = 'book-pages';
-    readToggle.className = 'have-read';
-    readSwitch.className = 'switch';
-    readSwitch.setAttribute('type', 'checkbox');
-    readRound.className = 'have-read-slider round';
-    
-    // display text of book cards
-    title.textContent = `${library[i].title}`;
-    author.textContent = `By ${library[i].author}`;
-    pages.textContent = `${library[i].pages} pages`;
-    readToggle.textContent = `${library[i].haveRead == true ? 'Mark as Unread' : 'Mark as Read'}`;
-    
-    // append whole book card as div with children  
-    libraryDisplay.appendChild(book);
-    book.appendChild(title);
-    book.appendChild(author);
-    book.appendChild(pages);
-    book.appendChild(readToggle);
-    readToggle.appendChild(readSwitch);
-    readToggle.appendChild(readRound);
+const openForm = () => {
+  createBookBox.style.display = 'flex';
+  createBookBox.style.flexDirection = 'column';
+  addBookButton.style.display = 'none';
+}
+const closeForm = () => {
+  createBookBox.style.display = 'none';
+  addBookButton.style.display = 'block';
+}
+
+addBookButton.addEventListener('click', openForm);
+cancelBookButton.addEventListener('click', closeForm);
+
+function render() {
+  const books = document.querySelectorAll('.book');
+  books.forEach(book => libraryDisplay.removeChild(book));
+
+  for (let i = 0; i < library.length; i++){
+      displayBook(library[i]);
   }
 }
- 
-displayBooks();
 
-addBookButton.onClick = function() {
-  if (createBookBox.style.display === 'hidden') {
-    createBookBox.style.visibility = 'visible';
-  } else createBookBox.style.visibility = 'hidden';
-};
+function displayBook(index) {
+  let book = document.createElement('div');
+  let title = document.createElement('h1');
+  let author = document.createElement('h2');
+  let pages = document.createElement('h2');
+  let readToggle = document.createElement('label');
+  let readSwitch = document.createElement('input');
+  let readRound = document.createElement('div');
+  let deleteButton = document.createElement('button');
+  
+  // add class to divs
+  book.className = 'book';
+  title.className = 'book-title';
+  author.className = 'book-author';
+  pages.className = 'book-pages';
+  readToggle.className = 'have-read';
+  readSwitch.className = 'switch';
+  readSwitch.setAttribute('type', 'checkbox');
+  readRound.className = 'have-read-slider round';
+  deleteButton.className = 'delete-book';
+  book.setAttribute('id', `book-${index.id}`);
+  
+  // display text of book cards
+  title.textContent = `${index.title}`;
+  author.textContent = `By ${index.author}`;
+  pages.textContent = `${index.pages} pages`;
+  // need to fix, not behaving as expected with switch behavior
+  readToggle.textContent = `${index.haveRead == true ? 'Mark as Unread' : 'Mark as Read'}`; 
+  deleteButton.textContent = 'Delete';
+  
+  // append whole book card as div with children  
+  libraryDisplay.appendChild(book);
+  book.appendChild(title);
+  book.appendChild(author);
+  book.appendChild(pages);
+  book.appendChild(readToggle);
+  book.appendChild(deleteButton);
+  readToggle.appendChild(readSwitch);
+  readToggle.appendChild(readRound);
+
+  deleteButton.addEventListener('click', () => {
+    if (confirm('Delete book?')) {
+      library.splice(library.indexOf(index), 1);
+      render();
+    }
+    
+})
+}
+
+render();

@@ -13,28 +13,31 @@
 
 <body>
   <div class="header">
-  <h1>odin library test</h1>
-  <button class="add-book">+ Add Book</button>
-  </div>
-
-  <fieldset class="create-book">
-    <label for="title">Title</label>
-    <input type="text" name="title" class="title-input" id="title">
-    <label for="author">Author</label>
-    <input type="text" name="author" class="author-input" id="author">
-    <label for="pages">Pages</label>
-    <input type="number" name="pages" class="pages-input" id="pages">
-    <div class="checkbox">
-      <p>Mark as read</p>
-    <label for="have-read" class="have-read">
-      <input type="checkbox" name="have-read" id="have-read" class="switch">
-      <div class="have-read-slider round"></div>
-    </label>
-  </div>
-  </fieldset>
-
-  <div class="library"></div>
-
+    <h1>odin library test</h1>
+    <button class="new-book">+ New Book</button>
+    </div>
+  
+    <div class="create-book">
+      <form action="#" class="form-container">
+      <label for="title">Title</label>
+      <input type="text" name="title" class="title-input" id="title">
+      <label for="author">Author</label>
+      <input type="text" name="author" class="author-input" id="author">
+      <label for="pages">Pages</label>
+      <input type="number" name="pages" class="pages-input" id="pages">
+      <div class="checkbox">
+        <p>Mark as read</p>
+        <label for="have-read" class="have-read">
+          <input type="checkbox" name="have-read" id="have-read" class="switch">
+          <div class="have-read-slider round"></div>
+        </label>
+        <button type="submit" class="submit-btn" name>Add Book</button>
+        <button type="button" class="cancel-btn">Cancel</button>
+        </div>
+      </form>
+    </div>
+  
+    <div id="library"></div>
   
 </body>
 </html>
