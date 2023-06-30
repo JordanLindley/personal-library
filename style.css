@@ -4,7 +4,7 @@ body {
   align-items: center;
 }
 
-.library {
+#library {
   display: grid;
   grid-template-columns: repeat(3, minmax(200px, 1fr));
   gap: 15px;
@@ -19,16 +19,16 @@ body {
   padding-bottom: 15px;
 }
 
-button {
+.delete-book {
   border: none;
-  background-color: lightblue;
+  background-color: rgba(184, 43, 43, 0.709);
   padding: 12px;
   border-radius: 10px;
   transition: all .15s ease;
   opacity: 0.8
 }
 
-button:hover {
+.delete-book:hover {
   opacity: 1;
   cursor: pointer;
 }
