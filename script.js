@@ -100,4 +100,6 @@ function displayBook(index) {
 })
 }
 
-render();
+render(); // call render() each time libary[] is updated.
+
+// testing git.
