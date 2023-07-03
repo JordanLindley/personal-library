@@ -1,12 +1,13 @@
 // DOM elements:
 // const titleInput = document.querySelector('.title-input').value;
+
 // const authorInput = document.querySelector('.author-input').value;
 const libraryDisplay = document.getElementById('library');
 const addBookButton = document.querySelector('.new-book');
 const createBookBox = document.querySelector('.create-book');
 const cancelBookButton = document.querySelector('.cancel-btn');
 
-const randomID = () => {"id" + Math.random().toString(16).slice(2)}
+const randomID = () => {return `id-${Math.floor(Math.random() * 10000).toString()}`}
 
 // book constructor
 function Book(id, title, author, pages, haveRead) {
@@ -56,9 +57,7 @@ function displayBook(index) {
   let title = document.createElement('h1');
   let author = document.createElement('h2');
   let pages = document.createElement('h2');
-  let readToggle = document.createElement('label');
-  let readSwitch = document.createElement('input');
-  let readRound = document.createElement('div');
+  let readButton = document.createElement('button');
   let deleteButton = document.createElement('button');
   
   // add class to divs
@@ -66,10 +65,8 @@ function displayBook(index) {
   title.className = 'book-title';
   author.className = 'book-author';
   pages.className = 'book-pages';
-  readToggle.className = 'have-read';
-  readSwitch.className = 'switch';
-  readSwitch.setAttribute('type', 'checkbox');
-  readRound.className = 'have-read-slider round';
+  readButton.className = 'read-btn';
+  readButton.type = 'button';
   deleteButton.className = 'delete-book';
   book.setAttribute('id', `book-${index.id}`);
   
@@ -78,7 +75,13 @@ function displayBook(index) {
   author.textContent = `By ${index.author}`;
   pages.textContent = `${index.pages} pages`;
   // need to fix, not behaving as expected with switch behavior
-  readToggle.textContent = `${index.haveRead == true ? 'Mark as Unread' : 'Mark as Read'}`; 
+  if (index.haveRead == true) {
+    readButton.style.backgroundColor = 'lightgreen' ;
+    readButton.textContent = 'Read';
+  } else {
+    readButton.style.backgroundColor = 'var(--red-button)';
+    readButton.textContent = 'Unread'; 
+  }
   deleteButton.textContent = 'Delete';
   
   // append whole book card as div with children  
@@ -86,20 +89,45 @@ function displayBook(index) {
   book.appendChild(title);
   book.appendChild(author);
   book.appendChild(pages);
-  book.appendChild(readToggle);
+  book.appendChild(readButton);
   book.appendChild(deleteButton);
-  readToggle.appendChild(readSwitch);
-  readToggle.appendChild(readRound);
 
   deleteButton.addEventListener('click', () => {
     if (confirm('Delete book?')) {
       library.splice(library.indexOf(index), 1);
+      saveLocalStorage();
       render();
     }
-    
-})
+  })
+
+  readButton.addEventListener('click', (element) => {
+    if (index.haveRead == true) {
+      index.haveRead = false;
+      readButton.textContent = 'Unread';
+      readButton.style.backgroundColor = 'var(--red-button)';
+    } else {
+      index.haveRead = true;
+      readButton.textContent = 'Read';
+      readButton.style.backgroundColor = 'lightgreen';
+    }
+  })
+
 }
 
-render(); // call render() each time libary[] is updated.
+function saveLocalStorage() {
+  localStorage.setItem(`library`, JSON.stringify(library));
+}
 
-// testing git.
+function getLocalStorage() {
+  if(!localStorage.myLibrary) {
+      render();
+  } else {
+      let objects = localStorage.getItem('library');
+      objects = JSON.parse(objects);
+      library = objects;
+      render();
+  }
+}
+
+getLocalStorage();
+render(); // call render() each time libary[] is updated.

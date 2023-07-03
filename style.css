@@ -1,5 +1,16 @@
+:root {
+  --background-color: #D3D3D3;
+  --book-background: white;
+  --red-button: rgba(184, 43, 43, 0.709);
+  --new-book-btn-bg: #555;
+  --new-book-btn: white;
+  --input-bg: #efebeb;
+  --create-book-border: #f1f1f1
+  --button-blue: lightblue;
+}
+
 body {
-  background-color: #D3D3D3;
+  background-color: var(--background-color);
   display: grid;
   align-items: center;
 }
@@ -12,30 +23,32 @@ body {
 }
 
 .book  {
+  display: grid;
   border: 1px solid white;
-  background-color: white;
+  background-color: var(--book-background);
   border-radius: 20px;
   text-align: center;
   padding-bottom: 15px;
+  align-items: center;
 }
 
 .delete-book {
+  background-color: var(--red-button);
+}
+
+.delete-book, .read-btn {
   border: none;
-  background-color: rgba(184, 43, 43, 0.709);
   padding: 12px;
   border-radius: 10px;
   transition: all .15s ease;
+  align-items: center;
+  width: 20%;
   opacity: 0.8
 }
 
-.delete-book:hover {
-  opacity: 1;
-  cursor: pointer;
-}
-
 .new-book {
-  background-color: #555;
-  color: white;
+  background-color: var(--new-book-btn-bg);
+  color: var(--new-book-btn);
   padding: 16px 20px;
   border: none;
   cursor: pointer;
@@ -44,18 +57,20 @@ body {
   bottom: 23px;
   right: 28px;
   width: 280px;
-}
-
-.new-book:hover {
-  opacity: 1;
+  border-radius: 15px;
 }
 
 button:active {
   scale: .95;
 }
 
+button:hover {
+  opacity: 1;
+  cursor: pointer;
+}
+
 input {
-  background-color: #efebeb;
+  background-color: var(--input-bg);
   border-radius: 5px;
 }
 
@@ -69,7 +84,7 @@ input {
   position: fixed;
   bottom: 0;
   right: 15px;
-  border: 3px solid #f1f1f1;
+  border: 3px solid var(--create-book-border);
   z-index: 9;
 /*   display: none;
   text-align: center;
@@ -116,7 +131,7 @@ input {
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: #ccc;
+  background-color: var(--button-blue);
   -webkit-transition: .4s;
   transition: .4s;
 }
@@ -142,11 +157,11 @@ input {
 }
 
 input:checked + .have-read-slider {
-  background-color: lightblue;
+  background-color: var(--button-blue);
 }
 
 input:focus + .have-read-slider {
-  box-shadow: 0 0 1px lightblue;
+  box-shadow: 0 0 1px var(--button-blue);
 }
 
 input:checked + .have-read-slider:before {
@@ -154,3 +169,4 @@ input:checked + .have-read-slider:before {
   -ms-transform: translateX(22px);
   transform: translateX(22px);
 }
+
