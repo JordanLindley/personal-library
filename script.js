@@ -6,6 +6,11 @@ const libraryDisplay = document.getElementById('library');
 const addBookButton = document.querySelector('.new-book');
 const createBookBox = document.querySelector('.create-book');
 const cancelBookButton = document.querySelector('.cancel-btn');
+const submitBookButton = document.querySelector('.submit-btn');
+const titleInput = document.getElementById('title');
+const authorInput = document.getElementById('author');
+const pagesInput = document.getElementById('pages');
+const readCheck = document.getElementById('have-read');
 
 const randomID = () => {return `id-${Math.floor(Math.random() * 10000).toString()}`}
 
@@ -22,13 +27,26 @@ function Book(id, title, author, pages, haveRead) {
 let library = [];
 
 // push created book to library
-const addBook = newBook => library.push(newBook);
+const addBook = () => {
+  event.preventDefault();
+
+  newBook = new Book(
+    randomID(), 
+    titleInput.value, 
+    authorInput.value, 
+    pagesInput.value, 
+    readCheck.checked
+  )
+  library.push(newBook);
+  saveLocalStorage();
+  render();
+}
+
+submitBookButton.addEventListener('click', addBook)
 
 // placeholder books
 const theHobbit = new Book(randomID(), 'The Hobbit', 'J.R.R. Tolkien', 304, false);
 const handmaidsTale = new Book(randomID(), 'The Handmaid\'s Tale', 'Margaret Atwood', 314, true);
-addBook(theHobbit);
-addBook(handmaidsTale);
 
 const openForm = () => {
   createBookBox.style.display = 'flex';
@@ -100,7 +118,7 @@ function displayBook(index) {
     }
   })
 
-  readButton.addEventListener('click', (element) => {
+  readButton.addEventListener('click', () => {
     if (index.haveRead == true) {
       index.haveRead = false;
       readButton.textContent = 'Unread';
